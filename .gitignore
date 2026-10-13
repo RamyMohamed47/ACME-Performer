@@ -17,7 +17,3 @@
 
 # Screenshots taken on system exceptions show the whole screen
 Exceptions_Screenshots/*.png
-
-# Local AI assistant instructions
-AGENTS.md
-CLAUDE.md
