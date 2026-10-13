@@ -81,6 +81,24 @@
     </scg:List>
   </TextExpression.ReferencesForImplementation>
   <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="375.2,389.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="wiid" />
+      <Variable x:TypeArguments="x:String" Name="itemType" />
+      <Variable x:TypeArguments="x:String" Name="completedStatus" />
+      <Variable x:TypeArguments="x:String" Name="clientInformationText" />
+      <Variable x:TypeArguments="x:String" Name="workItemDetailsText" />
+      <Variable x:TypeArguments="x:String" Name="clientId" />
+      <Variable x:TypeArguments="x:String" Name="clientName" />
+      <Variable x:TypeArguments="x:String" Name="clientCountry" />
+      <Variable x:TypeArguments="x:String" Name="workItemStatus" />
+      <Variable x:TypeArguments="x:String" Name="workItemComments" />
+      <Variable x:TypeArguments="x:String" Name="hashInput" />
+      <Variable x:TypeArguments="x:String" Name="clientHash" />
+      <Variable x:TypeArguments="x:String" Name="updatedDetailsText" />
+      <Variable x:TypeArguments="x:String" Name="updatedStatus" />
+      <Variable x:TypeArguments="x:String" Name="updatedComments" />
+      <Variable x:TypeArguments="x:String" Name="discardText" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -88,6 +106,162 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
-    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="333.6,56" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <Assign DisplayName="Assign - WIID from queue item" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[wiid]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(in_TransactionItem.SpecificContent.ContainsKey("WIID") AndAlso in_TransactionItem.SpecificContent("WIID") IsNot Nothing, in_TransactionItem.SpecificContent("WIID").ToString.Trim, String.Empty)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign - Type from queue item" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[itemType]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(in_TransactionItem.SpecificContent.ContainsKey("Type") AndAlso in_TransactionItem.SpecificContent("Type") IsNot Nothing, in_TransactionItem.SpecificContent("Type").ToString.Trim, String.Empty)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign - Completed status from Config" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[completedStatus]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[in_Config("ACME_CompletedStatus").ToString.Trim]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <If DisplayName="If - Queue item has no WIID" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">[String.IsNullOrWhiteSpace(wiid)]</InArgument>
+      </If.Condition>
+      <If.Then>
+        <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Throw DisplayName="Throw - Missing WIID (business exception)" Exception="[New BusinessRuleException(&quot;Queue item &quot; &amp; in_TransactionItem.Reference &amp; &quot; has no WIID field.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <If DisplayName="If - Work item type is not the configured type" sap2010:WorkflowViewState.IdRef="If_2">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">[Not String.Equals(itemType, in_Config("ACME_WorkItemType").ToString.Trim, StringComparison.OrdinalIgnoreCase)]</InArgument>
+      </If.Condition>
+      <If.Then>
+        <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Throw DisplayName="Throw - Wrong work item type (business exception)" Exception="[New BusinessRuleException(&quot;Work item &quot; &amp; wiid &amp; &quot; has type '&quot; &amp; itemType &amp; &quot;', expected '&quot; &amp; in_Config(&quot;ACME_WorkItemType&quot;).ToString &amp; &quot;'.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_2" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_GetClientDetails workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="ACME\ACME_GetClientDetails.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_WIID">[wiid]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ClientInformationText">[clientInformationText]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_WorkItemDetailsText">[workItemDetailsText]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ParseWorkItemDetails workflow (details page)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Process\ParseWorkItemDetails.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ClientInformationText">[clientInformationText]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_WorkItemDetailsText">[workItemDetailsText]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ClientId">[clientId]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ClientName">[clientName]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_ClientCountry">[clientCountry]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Status">[workItemStatus]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[workItemComments]</OutArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <If DisplayName="If - Work item is already Completed" sap2010:WorkflowViewState.IdRef="If_3">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">[String.Equals(workItemStatus, completedStatus, StringComparison.OrdinalIgnoreCase)]</InArgument>
+      </If.Condition>
+      <If.Then>
+        <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <If DisplayName="If - This is a retry of the same queue item" sap2010:WorkflowViewState.IdRef="If_4">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">[in_TransactionItem.RetryNo &gt; 0]</InArgument>
+            </If.Condition>
+            <If.Then>
+              <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <ui:LogMessage DisplayName="Log Message - Completed by an earlier attempt" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[&quot;Work item &quot; &amp; wiid &amp; &quot; is already &quot; &amp; completedStatus &amp; &quot; on retry &quot; &amp; in_TransactionItem.RetryNo.ToString &amp; &quot;: an earlier attempt saved the update. Nothing to do.&quot;]" />
+              </Sequence>
+            </If.Then>
+            <If.Else>
+              <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <Throw DisplayName="Throw - Already completed (business exception)" Exception="[New BusinessRuleException(&quot;Work item &quot; &amp; wiid &amp; &quot; is already &quot; &amp; completedStatus &amp; &quot; in ACME. It was not changed.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_3" />
+              </Sequence>
+            </If.Else>
+          </If>
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_7">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke BuildClientHashInput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Process\BuildClientHashInput.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ClientId">[clientId]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ClientName">[clientName]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ClientCountry">[clientCountry]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_HashInput">[hashInput]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SHA1_GetHash workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="SHA1\SHA1_GetHash.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_HashSiteUrl">[in_Config("SHA1_URL").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Algorithm">[in_Config("SHA1_Algorithm").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Text">[hashInput]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_Hash">[clientHash]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <Assign DisplayName="Assign - Normalise hash (trim, lower case)" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[clientHash]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[If(clientHash, String.Empty).Trim.ToLowerInvariant]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <If DisplayName="If - Result is not a SHA1 hash (40 hexadecimal characters)" sap2010:WorkflowViewState.IdRef="If_5">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">[Not (clientHash.Length = 40 AndAlso clientHash.All(Function(c) Uri.IsHexDigit(c)))]</InArgument>
+            </If.Condition>
+            <If.Then>
+              <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                <Throw DisplayName="Throw - Invalid hash result (system exception)" Exception="[New ApplicationException(&quot;SHA1 Online did not return a valid SHA1 hash for work item &quot; &amp; wiid &amp; &quot;. Returned text has &quot; &amp; clientHash.Length.ToString &amp; &quot; characters.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_4" />
+              </Sequence>
+            </If.Then>
+          </If>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_UpdateWorkItem workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="ACME\ACME_UpdateWorkItem.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_WIID">[wiid]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Comment">[clientHash]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_NewStatus">[completedStatus]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_SuccessDialogText">[in_Config("ACME_UpdateSuccessText").ToString]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_WorkItemDetailsText">[updatedDetailsText]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ParseWorkItemDetails workflow (after update)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Process\ParseWorkItemDetails.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ClientInformationText">[String.Empty]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_WorkItemDetailsText">[updatedDetailsText]</InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_ClientId">[discardText]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_ClientName">[discardText]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_ClientCountry">[discardText]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_Status">[updatedStatus]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[updatedComments]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <If DisplayName="If - Saved status or comment does not match" sap2010:WorkflowViewState.IdRef="If_6">
+            <If.Condition>
+              <InArgument x:TypeArguments="x:Boolean">[Not (String.Equals(updatedStatus, completedStatus, StringComparison.OrdinalIgnoreCase) AndAlso If(updatedComments, String.Empty).Contains(clientHash))]</InArgument>
+            </If.Condition>
+            <If.Then>
+              <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                <Throw DisplayName="Throw - Update not saved (system exception)" Exception="[New ApplicationException(&quot;Work item &quot; &amp; wiid &amp; &quot; does not show the expected status and hash comment after the update. Status read back: '&quot; &amp; updatedStatus &amp; &quot;'.&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_5" />
+              </Sequence>
+            </If.Then>
+          </If>
+          <ui:LogMessage DisplayName="Log Message - Work item completed" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Work item &quot; &amp; wiid &amp; &quot; set to &quot; &amp; completedStatus &amp; &quot; with the client security hash as comment.&quot;]" />
+        </Sequence>
+      </If.Else>
+    </If>
   </Sequence>
 </Activity>
