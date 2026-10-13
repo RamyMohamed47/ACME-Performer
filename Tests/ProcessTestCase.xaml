@@ -1,4 +1,7 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="ProcessTestCase" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1062,1803" sap2010:WorkflowViewState.IdRef="REFTestCase_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="ID of an open ACME work item of the configured type. The test really completes this work item, so use a different one for every run." Name="in_TestWIID" Type="InArgument(x:String)" />
+  </x:Members>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="44">
       <x:String>Microsoft.VisualBasic</x:String>
@@ -114,17 +117,14 @@
           <InArgument x:TypeArguments="x:Int32">1</InArgument>
         </Assign.Value>
       </Assign>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetTransactionData workflow" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
-        <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_TransactionNumber" />
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
-          <OutArgument x:TypeArguments="ui:QueueItem" x:Key="out_TransactionItem">[TransactionItem]</OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField1" />
-          <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionField2" />
-          <OutArgument x:TypeArguments="x:String" x:Key="out_TransactionID" />
-          <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dt_TransactionData" />
-        </ui:InvokeWorkflowFile.Arguments>
-      </ui:InvokeWorkflowFile>
+      <Assign DisplayName="Assign TransactionItem (built from in_TestWIID, the queue is not touched)" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="ui:QueueItem">[TransactionItem]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="ui:QueueItem">[New UiPath.Core.QueueItem() With {.Reference = in_TestWIID, .SpecificContent = New Dictionary(Of String, Object) From {{"WIID", in_TestWIID}, {"Type", Config("ACME_WorkItemType").ToString}}}]</InArgument>
+        </Assign.Value>
+      </Assign>
     </Sequence>
     <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="654.666666666667,206" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <sap:WorkflowViewStateService.ViewState>
@@ -159,7 +159,7 @@
       </ui:CommentOut>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke CloseAllApplications workflow" sap:VirtualizedContainerService.HintSize="612.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\CloseAllApplications.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <scg:Dictionary x:TypeArguments="x:String, Argument" />
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
     </Sequence>

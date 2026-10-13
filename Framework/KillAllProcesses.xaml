@@ -1,4 +1,7 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="KillAllProcesses" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="396,342" sap2010:WorkflowViewState.IdRef="CloseAllApplications_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="KillAllProcesses" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="396,342" sap2010:WorkflowViewState.IdRef="CloseAllApplications_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets). May be Nothing when settings failed to load." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>GlobalConstantsNamespace</x:String>
@@ -62,5 +65,21 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log message (Kill processes)" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Killing processes...&quot;]" />
+    <If DisplayName="If - Force-killing Chrome is enabled in Config (KillChromeOnRecovery)" sap2010:WorkflowViewState.IdRef="If_1">
+      <If.Condition>
+        <InArgument x:TypeArguments="x:Boolean">[in_Config IsNot Nothing AndAlso in_Config.ContainsKey("KillChromeOnRecovery") AndAlso in_Config("KillChromeOnRecovery").ToString.Trim.Equals("TRUE", StringComparison.OrdinalIgnoreCase)]</InArgument>
+      </If.Condition>
+      <If.Then>
+        <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <ui:KillProcess ContinueOnError="True" Process="{x:Null}" AppliesTo="All" DisplayName="Kill Process - chrome" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="chrome" />
+          <ui:LogMessage DisplayName="Log Message - Chrome killed" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[&quot;All chrome.exe processes were force-killed (KillChromeOnRecovery = TRUE).&quot;]" />
+        </Sequence>
+      </If.Then>
+      <If.Else>
+        <Sequence DisplayName="Else" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <ui:LogMessage DisplayName="Log Message - Kill skipped" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;KillChromeOnRecovery is not TRUE. No process was killed.&quot;]" />
+        </Sequence>
+      </If.Else>
+    </If>
   </Sequence>
 </Activity>
