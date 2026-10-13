@@ -901,6 +901,23 @@
                                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                         </scg:Dictionary>
                                       </sap:WorkflowViewStateService.ViewState>
+                                      <If DisplayName="If the run stopped on a system exception (not a rejected login), send the exception email" sap2010:WorkflowViewState.IdRef="If_15">
+                                        <If.Condition>
+                                          <InArgument x:TypeArguments="x:Boolean">[SystemException IsNot Nothing AndAlso Not TypeOf SystemException Is BusinessRuleException]</InArgument>
+                                        </If.Condition>
+                                        <If.Then>
+                                          <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_59">
+                                            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendExceptionEmail workflow (process stopped)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_30" UnSafe="False" WorkflowFileName="Framework\SendExceptionEmail.xaml">
+                                              <ui:InvokeWorkflowFile.Arguments>
+                                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[Config]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[If(Config Is Nothing, "ACME_ClientSecurityHash", Config("logF_BusinessProcessName").ToString) &amp; ": process stopped by a system exception"]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_Body">["Hello," &amp; Environment.NewLine &amp; "The process stopped because of a system exception:" &amp; Environment.NewLine &amp; SystemException.Message &amp; Environment.NewLine &amp; "Source: " &amp; SystemException.Source &amp; Environment.NewLine &amp; "Thank you"]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_AttachmentPath">[String.Empty]</InArgument>
+                                              </ui:InvokeWorkflowFile.Arguments>
+                                            </ui:InvokeWorkflowFile>
+                                          </Sequence>
+                                        </If.Then>
+                                      </If>
                                       <If Condition="[SystemException IsNot Nothing AndAlso (Config Is Nothing OrElse Convert.ToBoolean(Config(&quot;ShouldMarkJobAsFaulted&quot;)))]" DisplayName="If SystemException IsNot Nothing" sap:VirtualizedContainerService.HintSize="416,48" sap2010:WorkflowViewState.IdRef="If_14">
                                         <sap:WorkflowViewStateService.ViewState>
                                           <scg:Dictionary x:TypeArguments="x:String, x:Object">

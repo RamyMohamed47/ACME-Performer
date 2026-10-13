@@ -534,6 +534,14 @@
                     </Catch>
                   </TryCatch.Catches>
                 </TryCatch>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendExceptionEmail workflow (system exception)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Framework\SendExceptionEmail.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[in_Config("logF_BusinessProcessName").ToString &amp; ": system exception on transaction " &amp; in_TransactionID]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_Body">["Hello," &amp; Environment.NewLine &amp; "The transaction " &amp; in_TransactionID &amp; " failed with a system exception:" &amp; Environment.NewLine &amp; in_SystemException.Message &amp; Environment.NewLine &amp; "Source: " &amp; in_SystemException.Source &amp; Environment.NewLine &amp; "A screenshot is attached if one could be taken." &amp; Environment.NewLine &amp; "Thank you"]</InArgument>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_AttachmentPath">[ScreenshotPath]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
                 <If Condition="[QueueRetry]" DisplayName="If TransactionItem is a QueueItem (System Exception)" sap:VirtualizedContainerService.HintSize="512,1161.6" sap2010:WorkflowViewState.IdRef="If_6">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">

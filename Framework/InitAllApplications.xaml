@@ -72,11 +72,38 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" />
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_Login workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="ACME\ACME_Login.xaml">
-      <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="in_CredentialAssetName">[in_Config("ACME_CredentialAssetName").ToString]</InArgument>
-      </ui:InvokeWorkflowFile.Arguments>
-    </ui:InvokeWorkflowFile>
+    <TryCatch DisplayName="Try Catch - ACME login (a rejected login is reported by email, then ends the run)" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence DisplayName="Try" sap2010:WorkflowViewState.IdRef="Sequence_10">
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_Login workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="ACME\ACME_Login.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_CredentialAssetName">[in_Config("ACME_CredentialAssetName").ToString]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="ui:BusinessRuleException" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="businessException" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Catch" sap2010:WorkflowViewState.IdRef="Sequence_11">
+              <ui:LogMessage DisplayName="Log Message - Login rejected" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;ACME login rejected: &quot; &amp; businessException.Message]" />
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendExceptionEmail workflow (login rejected)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Framework\SendExceptionEmail.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[in_Config("logF_BusinessProcessName").ToString &amp; ": ACME login rejected"]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Body">[in_Config("ExceptionEmail_LoginFailedBody").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_AttachmentPath">[String.Empty]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <Rethrow DisplayName="Rethrow - End the run" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
   </Sequence>
 </Activity>
