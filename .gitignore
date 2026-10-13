@@ -14,3 +14,6 @@
 
 # Studio backup copies of documents open in the designer
 ~*.xaml
+
+# Screenshots taken on system exceptions show the whole screen
+Exceptions_Screenshots/*.png
