@@ -93,17 +93,45 @@
                     <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
                   </ActivityAction.Argument>
                   <Sequence DisplayName="Catch" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                    <ui:LogMessage DisplayName="Log Message - SHA1 Online not closed" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;SHA1 Online tab was not open or could not be closed: &quot; &amp; exception.Message]" />
+                    <ui:LogMessage DisplayName="Log Message - SHA1 Online not closed" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;SHA1 Online tab was not open or could not be closed: &quot; &amp; exception.Message.Split({Environment.NewLine}, StringSplitOptions.None)(0)]" />
                   </Sequence>
                 </ActivityAction>
               </Catch>
             </TryCatch.Catches>
           </TryCatch>
-          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_Close workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="ACME\ACME_Close.xaml">
-            <ui:InvokeWorkflowFile.Arguments>
-              <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
-            </ui:InvokeWorkflowFile.Arguments>
-          </ui:InvokeWorkflowFile>
+          <TryCatch DisplayName="Try Catch - Close ACME" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+            <TryCatch.Try>
+              <Sequence DisplayName="Try" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ACME_Close workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="ACME\ACME_Close.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_AcmeUrl">[in_Config("ACME_URL").ToString]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Catch" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <ui:LogMessage DisplayName="Log Message - ACME not closed" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;ACME tab was not open or could not be closed: &quot; &amp; exception.Message.Split({Environment.NewLine}, StringSplitOptions.None)(0)]" />
+                    <If DisplayName="If - Chrome may be force-killed (KillChromeOnRecovery)" sap2010:WorkflowViewState.IdRef="If_2">
+                      <If.Condition>
+                        <InArgument x:TypeArguments="x:Boolean">[in_Config.ContainsKey("KillChromeOnRecovery") AndAlso in_Config("KillChromeOnRecovery").ToString.Trim.Equals("TRUE", StringComparison.OrdinalIgnoreCase)]</InArgument>
+                      </If.Condition>
+                      <If.Then>
+                        <Sequence DisplayName="Then" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <Rethrow DisplayName="Rethrow - Let the framework kill the browser" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                        </Sequence>
+                      </If.Then>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
         </Sequence>
       </If.Else>
     </If>
