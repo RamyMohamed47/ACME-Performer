@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Log Out Link",
+  "Description": "Log Out link in the top navigation bar, present on every logged-in page",
+  "Type": "Element",
+  "TaxonomyType": "Label",
+  "Id": "SlcCjwZWCEiehcd4QHj7SA",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/SlcCjwZWCEiehcd4QHj7SA",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/CZ3VckbDMEmKI3lBFDA4Gw",
+  "Created": "2026-10-13T20:06:03.7017242Z",
+  "Updated": "2026-10-13T20:06:03.7017242Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

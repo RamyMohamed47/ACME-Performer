@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Hash Button",
+  "Description": "Button that submits the generator form and computes the hash",
+  "Type": "Element",
+  "TaxonomyType": "Button",
+  "Id": "EZY4b0VBlUCwD0v4gUGcwg",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/EZY4b0VBlUCwD0v4gUGcwg",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/lrO5Hd1_fkSEWDQ_5zItDA",
+  "Created": "2026-10-13T20:15:08.183287Z",
+  "Updated": "2026-10-13T20:15:08.183287Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

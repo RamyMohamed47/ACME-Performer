@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="G1B9hiXmK0SfaOYIVaz-9w" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" DesignTimeRectangle="988, 366, 57, 26" DesignTimeScaleFactor="1.25" ElementType="Button" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl action='/' method='post' tag='FORM' visibleinnertext='*whirlpool*' /&gt;&lt;webctrl aaname='hash' parentid='sha1-title' parentname='sha-1-online-generator' tag='INPUT' /&gt;" Guid="12cba40e-d861-42d3-8cfd-08a4e128ab52" ScopeSelectorArgument="&lt;html app='chrome.exe' title='*online*' url='https://www.sha1-online.com/*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="0" />
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="31c2085ddec938ce6eaf29e62fc6a09a.jpg" xmlns="">0YgMnlzTBYUyaSxjykPo5lQ</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Work Item Details Text",
+  "Description": "Paragraph under the Work Item Details heading holding WIID, Type, Status and Date",
+  "Type": "Element",
+  "TaxonomyType": "Label",
+  "Id": "G9kT2zMap0SvDxcgjR9cxw",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/G9kT2zMap0SvDxcgjR9cxw",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/t0E9s0TezUyk7Wmjhx5weg",
+  "Created": "2026-10-13T20:10:19.6589003Z",
+  "Updated": "2026-10-13T20:10:19.6589003Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

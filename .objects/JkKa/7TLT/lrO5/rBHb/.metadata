@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Hash Result Text",
+  "Description": "The computed hash value shown after the Result for sha1 label",
+  "Type": "Element",
+  "TaxonomyType": "Label",
+  "Id": "rBHbhGhyQUWpelB9H-q4NA",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/rBHbhGhyQUWpelB9H-q4NA",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/lrO5Hd1_fkSEWDQ_5zItDA",
+  "Created": "2026-10-13T20:16:20.4791916Z",
+  "Updated": "2026-10-13T20:16:20.4791916Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

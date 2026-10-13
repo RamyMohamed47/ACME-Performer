@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Comment Box",
+  "Description": "Add Comments text area on the Update Work Item form",
+  "Type": "Element",
+  "TaxonomyType": "Input",
+  "Id": "XKg4rEYFm0m9oZHAHTMXzQ",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/XKg4rEYFm0m9oZHAHTMXzQ",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/t0E9s0TezUyk7Wmjhx5weg",
+  "Created": "2026-10-13T20:13:21.544061Z",
+  "Updated": "2026-10-13T20:13:21.544061Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

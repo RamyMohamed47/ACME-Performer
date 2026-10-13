@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Login",
+  "Description": "Login page of ACME System 1, shown before authentication",
+  "Type": "Screen",
+  "Id": "XD-UGWtxDEKgGQLSISWKTw",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/XD-UGWtxDEKgGQLSISWKTw",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/wUOn8VtN_kGRlB0zWgVOkg",
+  "Created": "2026-10-13T19:59:40.7410202Z",
+  "Updated": "2026-10-13T19:59:40.7410202Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

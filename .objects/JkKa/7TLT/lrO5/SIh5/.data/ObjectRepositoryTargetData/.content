@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="Olz09I6NVEKdIVkdhXBkPg" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" DesignTimeRectangle="755, 419, 109, 23" DesignTimeScaleFactor="1.25" ElementType="DropDown" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl action='/' method='post' tag='FORM' /&gt;&lt;webctrl name='hash-algorithm-used' tag='SELECT' /&gt;" Guid="7d8ab174-48d1-407b-b0f6-f7dafebf782c" ScopeSelectorArgument="&lt;html app='chrome.exe' title='*online*' url='https://www.sha1-online.com/*' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <TargetAnchorable.Anchors>
+        <scg:List x:TypeArguments="ITarget" Capacity="0" />
+      </TargetAnchorable.Anchors>
+      <imageRef attrName="InformativeScreenshot" originalValue="098ff0694928fd15fa3b7d1f7d6713fc.jpg" xmlns="">08NHxvuQ2a0KBj85RY1ISpQ</imageRef>
+    </TargetAnchorable>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>

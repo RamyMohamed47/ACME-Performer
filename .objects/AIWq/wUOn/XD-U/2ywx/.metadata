@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Login Error Message",
+  "Description": "Validation message shown under the Email box after a rejected login",
+  "Type": "Element",
+  "TaxonomyType": "None",
+  "Id": "2ywxLtwoOEWGU7cQvuvhaQ",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/2ywxLtwoOEWGU7cQvuvhaQ",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/XD-UGWtxDEKgGQLSISWKTw",
+  "Created": "2026-10-13T20:01:29.4735845Z",
+  "Updated": "2026-10-13T20:01:29.4735845Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

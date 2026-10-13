@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Any Page",
+  "Description": "Any page of ACME System 1, regardless of address; used for the browser card and for elements present on every logged-in page",
+  "Type": "Screen",
+  "Id": "CZ3VckbDMEmKI3lBFDA4Gw",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/CZ3VckbDMEmKI3lBFDA4Gw",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/wUOn8VtN_kGRlB0zWgVOkg",
+  "Created": "2026-10-13T20:02:41.1280541Z",
+  "Updated": "2026-10-13T20:02:41.1280541Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

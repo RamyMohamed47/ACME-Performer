@@ -1,0 +1,15 @@
+﻿{
+  "Name": "New Status Dropdown",
+  "Description": "New Status dropdown on the Update Work Item form (options: Open, Rejected, Completed)",
+  "Type": "Element",
+  "TaxonomyType": "Dropdown",
+  "Id": "C8CznlgwjES9d_cqbLVfew",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/C8CznlgwjES9d_cqbLVfew",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/t0E9s0TezUyk7Wmjhx5weg",
+  "Created": "2026-10-13T20:13:21.6013441Z",
+  "Updated": "2026-10-13T20:13:21.6013441Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

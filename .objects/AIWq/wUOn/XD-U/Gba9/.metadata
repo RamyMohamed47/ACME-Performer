@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Password Input",
+  "Description": "Password box in the login form",
+  "Type": "Element",
+  "TaxonomyType": "Password",
+  "Id": "Gba9gES3wEyxBmi_cPl1jg",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/Gba9gES3wEyxBmi_cPl1jg",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/XD-UGWtxDEKgGQLSISWKTw",
+  "Created": "2026-10-13T20:00:08.8577513Z",
+  "Updated": "2026-10-13T20:00:08.8577513Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

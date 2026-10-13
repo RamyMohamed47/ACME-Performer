@@ -1,0 +1,14 @@
+﻿{
+  "Name": "Work Items",
+  "Description": "Work Items area of ACME System 1: the work item details page and its update form (addresses under /work-items)",
+  "Type": "Screen",
+  "Id": "t0E9s0TezUyk7Wmjhx5weg",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/t0E9s0TezUyk7Wmjhx5weg",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/wUOn8VtN_kGRlB0zWgVOkg",
+  "Created": "2026-10-13T20:07:41.4681324Z",
+  "Updated": "2026-10-13T20:07:41.4681324Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

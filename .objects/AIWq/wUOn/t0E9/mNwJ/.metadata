@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Client Information Text",
+  "Description": "Paragraph under the Client Information Details heading holding Client ID, Client Name and Client Country",
+  "Type": "Element",
+  "TaxonomyType": "Label",
+  "Id": "mNwJ4a-_nE2fzapyIob8IQ",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/mNwJ4a-_nE2fzapyIob8IQ",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/t0E9s0TezUyk7Wmjhx5weg",
+  "Created": "2026-10-13T20:10:19.6120696Z",
+  "Updated": "2026-10-13T20:10:19.6120696Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

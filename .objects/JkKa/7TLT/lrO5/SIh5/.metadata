@@ -1,0 +1,15 @@
+﻿{
+  "Name": "Hash Algorithm Dropdown",
+  "Description": "Dropdown that selects the hash algorithm, next to the generator form",
+  "Type": "Element",
+  "TaxonomyType": "Dropdown",
+  "Id": "SIh52yCZdU61iuFu8iMvlA",
+  "Reference": "zsqrIsBXuEKLgDZHHAefgg/SIh52yCZdU61iuFu8iMvlA",
+  "ParentRef": "zsqrIsBXuEKLgDZHHAefgg/lrO5Hd1_fkSEWDQ_5zItDA",
+  "Created": "2026-10-13T20:15:08.240739Z",
+  "Updated": "2026-10-13T20:15:08.240739Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.4.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.4.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
