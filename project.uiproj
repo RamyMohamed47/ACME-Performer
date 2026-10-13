@@ -1,0 +1,6 @@
+{
+  "Name": "ACME_ClientHash_Performer",
+  "ProjectType": "Process",
+  "Description": "Performer for ACME project",
+  "MainFile": "Main.xaml"
+}
