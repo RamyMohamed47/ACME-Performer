@@ -7,3 +7,7 @@
 ################################################################################
 # End of UiPath Studio common ignores
 ################################################################################
+
+# UI capture artifacts: thumbnails can show on-screen personal data (e.g. the login email)
+.screenshots/
+.objects/**/.images/
