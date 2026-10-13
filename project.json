@@ -84,6 +84,13 @@
         "testCaseType": "TestCase",
         "executionTemplateType": "Local",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "a0613645-35b7-406b-85ca-f86561d47b7a",
+        "testCaseType": "TestCase",
+        "executionTemplateType": "Local",
+        "fileName": "Tests\\ClientHashInputTestCase.xaml"
       }
     ],
     "saveToCloud": false

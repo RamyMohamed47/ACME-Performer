@@ -1,0 +1,189 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ClientHashInputTestCase" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="44">
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Testing</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="52">
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Testing</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Checks the two workflows that hold the hash rules, without opening any application: ParseWorkItemDetails (text read from ACME -> fields) and BuildClientHashInput (fields -> ClientID-ClientName-ClientCountry). Uses made-up data and can be run any number of times." DisplayName="ClientHashInputTestCase" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="clientText" />
+      <Variable x:TypeArguments="x:String" Name="detailsText" />
+      <Variable x:TypeArguments="x:String" Name="updatedText" />
+      <Variable x:TypeArguments="x:String" Name="clientId" />
+      <Variable x:TypeArguments="x:String" Name="clientName" />
+      <Variable x:TypeArguments="x:String" Name="clientCountry" />
+      <Variable x:TypeArguments="x:String" Name="statusBefore" />
+      <Variable x:TypeArguments="x:String" Name="commentsBefore" />
+      <Variable x:TypeArguments="x:String" Name="statusAfter" />
+      <Variable x:TypeArguments="x:String" Name="commentsAfter" />
+      <Variable x:TypeArguments="x:String" Name="hashInput" />
+      <Variable x:TypeArguments="x:String" Name="discardText" />
+      <Variable x:TypeArguments="x:Boolean" Default="False" Name="businessExceptionRaised" />
+    </Sequence.Variables>
+    <ui:LogMessage DisplayName="Log Message - ClientHashInputTestCase" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;ClientHashInputTestCase started.&quot;]" />
+    <Sequence DisplayName="... Given" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Assign DisplayName="Assign - Client information text as ACME returns it (padded lines)" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[clientText]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["Client ID: AB12345" &amp; vbLf &amp; "                            " &amp; "Client Name: Jane Example  " &amp; vbLf &amp; "                            " &amp; "Client Country: Italy" &amp; vbLf]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign - Work item details text (open item)" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[detailsText]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["WIID: 100000001" &amp; vbLf &amp; "                            " &amp; "Type: Calculate Client Security Hash" &amp; vbLf &amp; "                            " &amp; "Status: Open" &amp; vbLf &amp; "                            " &amp; "Date: 2020-01-31" &amp; vbLf]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign - Work item details text after an update" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[updatedText]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">["WIID: 100000001" &amp; vbLf &amp; "                            " &amp; "Type: Calculate Client Security Hash" &amp; vbLf &amp; "                            " &amp; "Status: Completed" &amp; vbLf &amp; "                            " &amp; "Date: 2020-01-31" &amp; vbLf &amp; "                            " &amp; "Comments: 0123456789abcdef0123456789abcdef01234567" &amp; vbLf]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="... When" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ParseWorkItemDetails workflow (open item)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Process\ParseWorkItemDetails.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ClientInformationText">[clientText]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_WorkItemDetailsText">[detailsText]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientId">[clientId]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientName">[clientName]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientCountry">[clientCountry]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Status">[statusBefore]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[commentsBefore]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke BuildClientHashInput workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Process\BuildClientHashInput.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ClientId">[clientId]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ClientName">[clientName]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ClientCountry">[clientCountry]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_HashInput">[hashInput]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ParseWorkItemDetails workflow (after update)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Process\ParseWorkItemDetails.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ClientInformationText">[String.Empty]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_WorkItemDetailsText">[updatedText]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientId">[discardText]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientName">[discardText]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_ClientCountry">[discardText]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Status">[statusAfter]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Comments">[commentsAfter]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <TryCatch DisplayName="Try Catch - An empty client field must raise a business exception" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+        <TryCatch.Try>
+          <Sequence DisplayName="Try" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke BuildClientHashInput workflow (empty Client Name)" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Process\BuildClientHashInput.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ClientId">[clientId]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ClientName">[String.Empty]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_ClientCountry">[clientCountry]</InArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_HashInput">[discardText]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+          </Sequence>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="ui:BusinessRuleException" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+            <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="businessException" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Catch" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                <Assign DisplayName="Assign - Business exception was raised" sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Boolean">[businessExceptionRaised]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Boolean">[businessException.Message.Contains("Client Name")]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+    </Sequence>
+    <Sequence DisplayName="... Then" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify the three client fields are parsed and trimmed" Expression="[clientId = &quot;AB12345&quot; AndAlso clientName = &quot;Jane Example&quot; AndAlso clientCountry = &quot;Italy&quot;]" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify the hash input is ClientID-ClientName-ClientCountry" Expression="[hashInput = &quot;AB12345-Jane Example-Italy&quot;]" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify status and (absent) comments of an open item" Expression="[statusBefore = &quot;Open&quot; AndAlso commentsBefore = String.Empty]" sap2010:WorkflowViewState.IdRef="VerifyExpression_3" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify status and comment after an update" Expression="[statusAfter = &quot;Completed&quot; AndAlso commentsAfter = &quot;0123456789abcdef0123456789abcdef01234567&quot;]" sap2010:WorkflowViewState.IdRef="VerifyExpression_4" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <uta:VerifyExpression AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="False" DisplayName="Verify an empty client field raises a business exception naming the field" Expression="[businessExceptionRaised]" sap2010:WorkflowViewState.IdRef="VerifyExpression_5" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" />
+      <ui:LogMessage DisplayName="Log Message - Test passed" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;ClientHashInputTestCase passed: 5 verifications.&quot;]" />
+    </Sequence>
+  </Sequence>
+</Activity>
